@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %} {% trans "Dataset details" %} - {% trans "Summary" %} {% endblock title %}
+
+{% block content %}
+
+                <div class="container">
+
+                    <div class="row search-ui">
+
+                        <div class="span8 offset3 text-left">
+
+                            <div class="row">
+
+                                {% include "browser/_search.html" with query=query %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="">
+                    <h4 class="dataset-title"> {% trans "Summary" %}: {{ dataset.title }} </h4>
+                </div>
+
+                <div class="row dataset-details">
+
+                    <div class="span6">
+
+                        <div class="panel panel-dataset">
+
+                            <div class="panel-heading">
+
+                                <h5>
+                                    <i class="fa fa-bar-chart-o" aria-hidden="true"></i> {% trans "Box Plot" %}
+                                </h5>
+
+                            </div>
+
+                            <div class="panel-body">
+                                <div>
+                                    <img src="/api/graph/{{resource_id}}" />
+                                </div>
+
+                                <p class="top30 text-right">
+                                    <a class="" href="https://en.wikipedia.org/wiki/Box_plot" target="_blank">{% trans "How can I understand this?" %}</a>
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="panel panel-dataset">
+
+                            <div class="dataset-description panel-heading">
+                                <h5>
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Summary" %}
+                                </h5>
+                            </div>
+                            <div class="panel-body dataset-description">
+                                <p class="text-justify">
+                                    <ul class="unstyled">
+                                        {% for key, value in fields_description.items %}
+                                            <li class="top25">
+                                                <legend><h6><small>{{ key }}</small></h6></legend>
+                                                {% trans "The average value in field" %} <i>{{key}}</i>
+                                                {% trans "is" %} <strong>{{value.mean}}</strong>.
+                                                {% trans "The maximum value in the field is" %} <strong>{{value.max}}</strong>
+                                                {% trans "and the minmum value in the field is" %} <strong>{{value.min}}</strong>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-dataset">
+
+                            <div class="dataset-description panel-heading">
+                                <h5>
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Details" %}
+                                </h5>
+                            </div>
+                            <div class="panel-body dataset-description">
+                                <table class="table table-condensed">
+                                    <tr>
+                                        <th>{% trans "Field name" %}</th>
+                                        <th>{% trans "Summary" %}</th>
+                                    </tr>
+                                    {% for key, value in fields_description.items %}
+                                    <tr>
+                                        <td  style="vertical-align:middle">
+                                            <code>{{key}}</code>
+                                        </td>
+                                        <td>
+                                            <table class="table table-condensed table-borderless">
+                                                {% for k, v in value.items %}
+                                                    <tr>
+                                                        <td>
+                                                            <strong>{{k}}</strong>
+                                                        </td>
+                                                        <td>
+                                                            {{ v|floatformat:-2 }}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+
+                         </div>
+
+                    </div>
+
+
+                    <div class="span6">
+
+
+
+                        <div class="panel panel-dataset">
+
+                            <div class="panel-heading">
+
+                                <h5>
+                                    <i class="fa fa-bar-chart-o" aria-hidden="true"></i> {% trans "Correlation Matrix" %}
+                                </h5>
+
+                            </div>
+
+                            <div class="panel-body">
+                                <div>
+                                    <img src="/api/graph/{{resource_id}}/corr" />
+                                </div>
+                                <p class="top30 text-right">
+                                    <a class="" href="https://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">{% trans "How can I understand this?" %}</a>
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="panel panel-dataset">
+
+                            <div class="dataset-description panel-heading">
+                                <h5>
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Description" %}
+                                </h5>
+                            </div>
+                            <div class="panel-body dataset-description">
+                                <p class="text-justify">
+                                    {{ dataset.notes }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div class="panel panel-dataset">
+
+                            <div class="panel-heading">
+
+                                <h5>
+                                    <i class="fa fa-share-square-o" aria-hidden="true"></i> {% trans "Share this page" %}
+                                </h5>
+
+                            </div>
+
+                            <div class="panel-body">
+
+                                {% trans "Use the icons below in order to share this page in your favourite Social Media." %}
+
+                                <div id="social-sharing"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+{% endblock content %}

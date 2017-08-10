@@ -1,0 +1,16 @@
+version: '2'
+services:
+  c-tet-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "8000"
+    volumes:
+      - .:/opt/tet
+    networks:
+      - nginx-load-balancer
+networks:
+  nginx-load-balancer:
+    external:
+      name: docker_nginx-load-balancer

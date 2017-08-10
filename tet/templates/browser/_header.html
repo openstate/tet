@@ -1,0 +1,44 @@
+{% load static %}
+{% load i18n %}
+
+            <div class="navbar navbar-fixed-top">
+
+                <div class="navbar-inner">
+                    <div class="container">
+
+
+                        <div class="pull-left">
+
+                            <a href="{% url "index" %}" class="rtpa-logo"></a>
+
+                        </div>
+
+<!--
+                        <div class="pull-left head-buttons">
+                            {% if user.is_anonymous %}
+                                <a href="#" class="btn btn-primary-login" id="login-popup">{% trans "Login" %}</a>
+                            {% else %}
+                                <a href="{% url 'django.contrib.auth.views.logout' %}" class="btn btn-primary-login" id="login-popup">{% trans "Logout" %}</a>
+                            {% endif %}
+                        </div>
+-->
+
+                        <div class="pull-right head-buttons">
+                            <a href="{% url "index" %}" class="btn-link">{% trans "Home" %}</a>
+<!--
+                            | <a href="#" class="btn-link">{% trans "About" %}</a>
+                            | <a href="#" class="btn-link" id="help-section-btn">{% trans "Help" %}</a>
+-->
+                            | <a href="{{CKAN_URL}}" class="btn-link">{% trans "Classic CKAN" %}</a>
+                            | <a href="{{SPOD_URL}}" class="btn-link">{% trans "SPOD" %}</a>
+                            |
+                            {% include "browser/_language_selector.html" %}
+                        </div>
+
+                        <span class="clearfix"></span>
+
+                    </div>
+
+                </div>
+
+            </div>

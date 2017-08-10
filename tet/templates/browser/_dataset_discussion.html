@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<div class="spod-discussion">
+
+    <h5 class="top5"> <small> <i class="fa fa-chevron-right" aria-hidden="true"></i> {{ dataset.subject }}</small></h5>
+
+    <ul class="media-list">
+
+    <!-- TODO limit no of comments -->
+    {% for comment in dataset.roomsummary %}
+
+        <li class="media">
+            <a href="{{ comment.userUrl }}" class="pull-left" data-original-title="" title="">
+                <img src="{{ comment.userAvatarUrl }}" alt="" class="img-circle avatar">
+            </a>
+            <div class="media-body">
+                <strong class="text-success">{{ comment.userDisplayName }}</strong>
+                <p>
+                    {{ comment.message }}
+                </p>
+            </div>
+        </li>
+
+    {% endfor %}
+
+    </ul>
+
+    <a href="{{ dataset.url }}" class="pull-right" data-original-title="" title=""> {% trans "Join the discussion" %}</a>
+
+</div>

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} Dataset details {% endblock title %}
+
+{% block content %}
+
+                <div class="container">
+
+                    <div class="row search-ui">
+
+                        <div class="span8 offset3 text-left">
+
+                            <div class="row">
+
+                                {% include "browser/_search.html" with query=query %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <h4 class="dataset-title"> {{ dataset.title }} <small>{% trans "PDF Preview" %}</small> </h4>
+
+                </div>
+
+
+                <div class="row pdf-summary">
+
+                    <div class="span6">
+
+
+                        <div>
+                            <h5>{% trans "Summary" %}</h5>
+                            {%if text_analytics.summary %}
+                            <ul>
+                             {% for relations in text_analytics.summary %}
+                                <li class="summary">{{relations}}</li>
+                             {% endfor %}
+                            </ul>
+                            {% else %}
+                                {% trans "Not available" %}
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                     <div class="span6">
+
+                        {%if text_analytics.entities %}
+                        <div class="">
+                            <h5>{% trans "Entities" %}</h5>
+                            {% for entitiy in text_analytics.entities %}
+                                <span class="label">{{entitiy.text}} ({{entitiy.type}})</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        {%if text_analytics.concepts %}
+                        <div class="">
+                            <h5>{% trans "Concepts" %}</h5>
+                            {% for concept in text_analytics.concepts %}
+                                <span class="label"><a href="{{concept.dbpedia}}">{{concept.text}} </a></span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        {%if text_analytics.keywords %}
+                        <div class="">
+                            <h5>{% trans "Keywords" %}</h5>
+                            {% for keyword in text_analytics.keywords %}
+                                <span class="label">{{keyword.text}}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        {%if text_analytics.dates %}
+                        <div class="">
+                            <h5>{% trans "Dates" %}</h5>
+                            {% for date in text_analytics.dates %}
+                                <span class="label">{{date.text}}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+
+                     </div>
+
+
+                </div>
+
+
+                <div class="row top30">
+                    <div class="span10 offset1">
+                        <embed src="{{url}}" width="100%" height="1000" type='application/pdf' />
+                    </div>
+                </div>
+
+            </div>
+
+{% endblock content %}
